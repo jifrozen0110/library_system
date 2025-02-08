@@ -1,3 +1,6 @@
 spring:
   profiles:
+    group:
+      dev: "dev, docs"
+      prod: "prod"
     active: dev

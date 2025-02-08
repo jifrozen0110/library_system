@@ -1,0 +1,5 @@
+springdoc:
+  cache:
+    disabled: true
+  swagger-ui:
+    enabled: true
