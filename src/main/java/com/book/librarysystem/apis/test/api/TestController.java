@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.book.librarysystem.apis.test.dto.TestRequest;
 import com.book.librarysystem.apis.test.spec.TestControllerSpec;
 
-
+import io.swagger.v3.oas.annotations.media.Schema;
 
 @RestController
 @RequestMapping("/api/test")
@@ -29,7 +29,7 @@ public class TestController implements TestControllerSpec {
 
 	@Override
 	@PostMapping
-	public String createTestData(@RequestBody TestRequest data) {
+	public String createTestData(@RequestBody @Schema(implementation = TestRequest.class) TestRequest data) {
 		testData.add(data.getData());
 		return "테스트 데이터를 추가합니다 : " + data.getData();
 	}
