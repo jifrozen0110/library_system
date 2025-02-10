@@ -2,8 +2,6 @@ package com.book.librarysystem.apis.test.spec;
 
 import java.util.List;
 
-import org.springframework.web.bind.annotation.PathVariable;
-
 import com.book.librarysystem.apis.test.dto.TestRequest;
 
 import io.swagger.v3.oas.annotations.Operation;
