@@ -18,4 +18,7 @@ public interface TestControllerSpec {
 
 	@Operation(summary = "특정 테스트 데이터 조회", description = "ID를 통해 특정 테스트 데이터를 조회합니다.")
 	String getTestDataById(Long id);
+
+	@Operation(summary="테스트 데이터 삭제", description="모든 테스트 데이터를 삭제합니다.")
+	void resetTestData();
 }

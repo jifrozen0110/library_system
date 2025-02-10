@@ -3,6 +3,7 @@ package com.book.librarysystem.apis.test.api;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -42,4 +43,11 @@ public class TestController implements TestControllerSpec {
 		}
 		return testData.get(id.intValue());
 	}
+
+	@Override
+	@DeleteMapping
+	public void resetTestData() {
+		testData.clear();
+	}
+
 }
