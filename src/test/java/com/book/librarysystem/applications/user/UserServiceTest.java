@@ -13,6 +13,7 @@ import com.book.librarysystem.applications.user.response.UserResponse;
 import com.book.librarysystem.domains.user.repository.UserRepository;
 import com.book.librarysystem.fixtures.user.UserFixture;
 
+@DisplayName("[서비스] User Service")
 class UserServiceTest extends ServiceTestSupport {
 	@Autowired
 	private UserService userService;
