@@ -23,7 +23,7 @@ class UserServiceTest extends ServiceTestSupport {
 
 	@Nested
 	@DisplayName("사용자 등록 테스트")
-	class JoinUser{
+	class JoinUser {
 		@Test
 		@DisplayName("등록 성공")
 		void success() {
@@ -37,7 +37,7 @@ class UserServiceTest extends ServiceTestSupport {
 
 		@Test
 		@DisplayName("이미 등록된 email이면 가존 회원 번호가 반환된다.")
-		void joinExistingUserReturnUserId(){
+		void joinExistingUserReturnUserId() {
 			UserJoinRequest request = UserFixture.userJoinRequest;
 
 			Long userId = userService.join(request);
@@ -49,7 +49,7 @@ class UserServiceTest extends ServiceTestSupport {
 
 	@Nested
 	@DisplayName("사용자 조회 테스트")
-	class FindUser{
+	class FindUser {
 		@Test
 		@DisplayName("Id로 사영자를 조회하면 UserResponse를 반환한다.")
 		void success() {
