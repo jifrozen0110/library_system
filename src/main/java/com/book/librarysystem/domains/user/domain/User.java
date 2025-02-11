@@ -3,7 +3,10 @@ package com.book.librarysystem.domains.user.domain;
 import com.book.librarysystem.domains.common.BaseEntity;
 
 import jakarta.persistence.Column;
+import jakarta.persistence.Embedded;
 import jakarta.persistence.Entity;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
@@ -22,12 +25,21 @@ public class User extends BaseEntity {
 	@Column(name = "user_id")
 	private Long id;
 
-	@Column(length = 100, nullable = false)
-	private String name;
+	@Embedded
+	private Name name;
 
-	@Column(length = 255, nullable = false, unique = true)
-	private String email;
+	@Embedded
+	private Email email;
 
-	private boolean isAdministrator;
+	@Enumerated(EnumType.STRING)
+	private Role role = Role.MEMBER;
 
+	private User(Name name, Email email) {
+		this.name = name;
+		this.email = email;
+	}
+
+	public static User createUser(String name, String email) {
+		return new User(new Name(name), new Email(email));
+	}
 }
