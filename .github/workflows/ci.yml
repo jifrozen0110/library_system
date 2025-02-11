@@ -32,7 +32,7 @@ jobs:
       - name: Build with Gradle
         run: ./gradlew clean build
         env:
-          SPRING_PROFILES_ACTIVE: dev
+          SPRING_PROFILES_ACTIVE: test
 
       - name: Write Test Report
         uses: EnricoMi/publish-unit-test-result-action@v2
