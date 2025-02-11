@@ -6,16 +6,11 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.test.web.servlet.MockMvc;
 
 import com.book.librarysystem.apis.ControllerTestSupport;
 
 @DisplayName("[컨트롤러] Test API")
 class TestControllerTest extends ControllerTestSupport {
-
-	@Autowired
-	private MockMvc mockMvc;
 
 	@BeforeEach
 	void setUp() throws Exception {
