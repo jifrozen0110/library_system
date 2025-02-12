@@ -2,6 +2,9 @@ package com.book.librarysystem.domains.user.domain;
 
 import java.util.Objects;
 
+import com.book.librarysystem.domains.user.exception.UserNameBlankException;
+import com.book.librarysystem.domains.user.exception.UserNameLengthException;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Embeddable;
 import lombok.AccessLevel;
@@ -26,10 +29,10 @@ public class Name {
 
 	private void validate(String value) {
 		if (Objects.isNull(value) || value.trim().isEmpty()) {
-			throw new IllegalArgumentException("이름은 null 이거나 공백일 수 없습니다.");
+			throw new UserNameBlankException();
 		}
 		if (value.length() > MAX_LENGTH) {
-			throw new IllegalArgumentException("이름은 " + MAX_LENGTH + "자 이하여야 합니다.");
+			throw new UserNameLengthException(MAX_LENGTH, value.length());
 		}
 	}
 }
