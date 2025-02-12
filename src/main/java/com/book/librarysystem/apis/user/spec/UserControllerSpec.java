@@ -25,7 +25,7 @@ public interface UserControllerSpec {
 		responses = {
 			@ApiResponse(responseCode = "200", description = "회원가입 성공",
 				content = @Content(schema = @Schema(implementation = Long.class))),
-			@ApiResponse(responseCode = "400", description = "잘못된 요청 데이터")
+			@ApiResponse(responseCode = "400", description = "잘못된 요청 데이터입니다.")
 		}
 	)
 	@PostMapping("/join")
@@ -39,7 +39,7 @@ public interface UserControllerSpec {
 		responses = {
 			@ApiResponse(responseCode = "200", description = "사용자 조회 성공",
 				content = @Content(schema = @Schema(implementation = UserResponse.class))),
-			@ApiResponse(responseCode = "404", description = "사용자를 찾을 수 없음")
+			@ApiResponse(responseCode = "404", description = "사용자를 찾을 수 없습니다.")
 		}
 	)
 	@GetMapping("/{id}")

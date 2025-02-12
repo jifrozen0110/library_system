@@ -15,7 +15,7 @@ public record UserJoinRequest(
 	String email,
 	@Schema(description = "사용자 이름", example = "문지언")
 	@NotBlank(message = "이름은 필수 입력값입니다.")
-	@Size(min = 2, max = 20, message = "이름은 2자이상 50자 이하로 입력해야 합니다.")
+	@Size(min = 2, max = 100, message = "이름은 2자이상 100자 이하로 입력해야 합니다.")
 	String name
 ) {
 	public User toUser() {
