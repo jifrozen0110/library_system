@@ -10,6 +10,9 @@ import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.MethodSource;
 import org.junit.jupiter.params.provider.ValueSource;
 
+import com.book.librarysystem.domains.user.exception.UserEmailBlankException;
+import com.book.librarysystem.domains.user.exception.UserEmailInvalidException;
+
 @DisplayName("[도메인] Email")
 class EmailTest {
 
@@ -22,7 +25,7 @@ class EmailTest {
 	@DisplayName("이메일이 null, 빈 문자열 또는 공백일 경우 예외가 발생한다.")
 	void failEmailNullOrEmpty(String invalidEmail) {
 		assertThatThrownBy(() -> new Email(invalidEmail))
-			.isInstanceOf(IllegalArgumentException.class)
+			.isInstanceOf(UserEmailBlankException.class)
 			.hasMessage("이메일은 null 이거나 공백일 수 없습니다.");
 	}
 
@@ -32,7 +35,7 @@ class EmailTest {
 	void failEmailInValidFormat(String value) {
 		// when & then
 		Assertions.assertThatThrownBy(() -> new Email(value))
-			.isInstanceOf(IllegalArgumentException.class)
+			.isInstanceOf(UserEmailInvalidException.class)
 			.hasMessageContaining("이메일 형식이 올바르지 않습니다");
 	}
 

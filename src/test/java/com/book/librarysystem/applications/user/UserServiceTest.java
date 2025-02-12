@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import com.book.librarysystem.applications.ServiceTestSupport;
 import com.book.librarysystem.applications.user.request.UserJoinRequest;
 import com.book.librarysystem.applications.user.response.UserResponse;
+import com.book.librarysystem.domains.user.exception.UserNotFoundException;
 import com.book.librarysystem.domains.user.repository.UserRepository;
 import com.book.librarysystem.fixtures.user.UserFixture;
 
@@ -63,10 +64,10 @@ class UserServiceTest extends ServiceTestSupport {
 		}
 
 		@Test
-		@DisplayName("사용자가 없으면 IllegalArgumentException을 던진다.")
+		@DisplayName("사용자가 없으면 UserNotFoundException을 던진다.")
 		void notExistUserThenThrowIllegalArgumentException() {
 			assertThatThrownBy(() -> userService.getUser(999L))
-				.isInstanceOf(IllegalArgumentException.class)
+				.isInstanceOf(UserNotFoundException.class)
 				.hasMessage("사용자를 찾을 수 없습니다.");
 		}
 	}

@@ -3,6 +3,9 @@ package com.book.librarysystem.domains.user.domain;
 import java.util.Objects;
 import java.util.regex.Pattern;
 
+import com.book.librarysystem.domains.user.exception.UserEmailBlankException;
+import com.book.librarysystem.domains.user.exception.UserEmailInvalidException;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Embeddable;
 import lombok.AccessLevel;
@@ -28,11 +31,11 @@ public class Email {
 
 	private void validate(String value) {
 		if (Objects.isNull(value) || value.trim().isEmpty()) {
-			throw new IllegalArgumentException("이메일은 null 이거나 공백일 수 없습니다.");
+			throw new UserEmailBlankException();
 		}
 
 		if (isNotMatchEmailForm(value)) {
-			throw new IllegalArgumentException("이메일 형식이 올바르지 않습니다: " + value);
+			throw new UserEmailInvalidException(value);
 		}
 	}
 

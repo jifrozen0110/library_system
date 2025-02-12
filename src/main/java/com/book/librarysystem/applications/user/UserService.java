@@ -9,6 +9,7 @@ import com.book.librarysystem.applications.user.request.UserJoinRequest;
 import com.book.librarysystem.applications.user.response.UserResponse;
 import com.book.librarysystem.domains.user.domain.Email;
 import com.book.librarysystem.domains.user.domain.User;
+import com.book.librarysystem.domains.user.exception.UserNotFoundException;
 import com.book.librarysystem.domains.user.repository.UserRepository;
 
 import lombok.RequiredArgsConstructor;
@@ -42,7 +43,7 @@ public class UserService {
 
 	public User getUser(Long Id) {
 		return userRepository.findById(Id)
-			.orElseThrow(() -> new IllegalArgumentException("사용자를 찾을 수 없습니다."));
+			.orElseThrow(() -> new UserNotFoundException());
 	}
 
 }
