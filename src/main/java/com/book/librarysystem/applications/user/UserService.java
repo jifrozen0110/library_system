@@ -13,9 +13,7 @@ import com.book.librarysystem.domains.user.exception.UserNotFoundException;
 import com.book.librarysystem.domains.user.repository.UserRepository;
 
 import lombok.RequiredArgsConstructor;
-import lombok.extern.slf4j.Slf4j;
 
-@Slf4j
 @RequiredArgsConstructor
 @Service
 public class UserService {

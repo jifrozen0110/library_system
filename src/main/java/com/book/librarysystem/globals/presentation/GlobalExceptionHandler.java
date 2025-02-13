@@ -22,13 +22,13 @@ public class GlobalExceptionHandler {
 	@ExceptionHandler(MethodArgumentNotValidException.class)
 	public ResponseEntity<ErrorResponse> handleMethodArgumentNotValidException(
 		MethodArgumentNotValidException e
-	){
+	) {
 		String defaultErrorMessage = Optional.ofNullable(e.getBindingResult().getAllErrors().stream()
 				.findFirst()
 				.orElse(null))
 			.map(error -> error.getDefaultMessage())
 			.orElse("잘못된 요청입니다.");
-		log.warn("[MethodArgumentNotValidException] {}",defaultErrorMessage);
+		log.warn("[MethodArgumentNotValidException] {}", defaultErrorMessage);
 
 		return ResponseEntity.badRequest().body(new ErrorResponse(defaultErrorMessage));
 	}
@@ -36,8 +36,9 @@ public class GlobalExceptionHandler {
 	@ExceptionHandler(MethodArgumentTypeMismatchException.class)
 	public ResponseEntity<ErrorResponse> handleMethodArgumentTypeMismatchException(
 		MethodArgumentTypeMismatchException e
-	){
-		String errorMessage = String.format("'%s' 값이 '%s' 타입에 맞지 않습니다.", e.getValue(), e.getRequiredType().getSimpleName());
+	) {
+		String errorMessage = String.format("'%s' 값이 '%s' 타입에 맞지 않습니다.", e.getValue(),
+			e.getRequiredType().getSimpleName());
 		log.warn("[MethodArgumentTypeMismatchException] {}", errorMessage);
 
 		return ResponseEntity.badRequest().body(new ErrorResponse(errorMessage));
@@ -46,7 +47,7 @@ public class GlobalExceptionHandler {
 	@ExceptionHandler(HttpMessageNotReadableException.class)
 	public ResponseEntity<ErrorResponse> handleHttpMessageNotReadableException(
 		HttpMessageNotReadableException e
-	){
+	) {
 		log.warn("[HttpMessageNotReadableException] {}", e.getMessage());
 
 		return ResponseEntity
