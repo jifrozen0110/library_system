@@ -1,5 +1,6 @@
 package com.book.librarysystem.domains.book.domain;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 import com.book.librarysystem.domains.common.BaseEntity;
@@ -31,11 +32,33 @@ public class Book extends BaseEntity {
 	@Column(length = 100, nullable = false)
 	private String author;
 
-	private LocalDateTime publishedAt;
+	private LocalDate publishedAt;
 
 	private String modifiedBy;
 	private String deletedBy;
 
 	private LocalDateTime deletedAt;
+
+	private Book(String title, String author, LocalDate publishedAt) {
+		this.title = title;
+		this.author = author;
+		this.publishedAt = publishedAt;
+	}
+
+	public static Book createBook(String title, String author, LocalDate publishedAt) {
+		return new Book(title, author, publishedAt);
+	}
+
+	public void updateBook(String title, String author, LocalDate publishedAt, String modifiedBy) {
+		this.title = title;
+		this.author = author;
+		this.publishedAt = publishedAt;
+		this.modifiedBy = modifiedBy;
+	}
+
+	public void deleteBook(String deletedBy) {
+		this.deletedBy = deletedBy;
+		this.deletedAt = LocalDateTime.now();
+	}
 
 }
