@@ -1,7 +1,6 @@
 spring:
   profiles:
     group:
-      test: "test"
       dev: "dev, docs"
       prod: "prod"
     active: dev
