@@ -10,6 +10,7 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 import com.book.librarysystem.apis.book.api.BookController;
+import com.book.librarysystem.apis.loan.api.LoanController;
 import com.book.librarysystem.apis.test.api.TestController;
 import com.book.librarysystem.apis.user.api.UserController;
 import com.book.librarysystem.applications.book.BookService;
@@ -21,7 +22,8 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 	controllers = {
 		TestController.class,
 		UserController.class,
-		BookController.class
+		BookController.class,
+		LoanController.class
 	},
 	excludeFilters = {@ComponentScan.Filter(type = FilterType.ASSIGNABLE_TYPE, classes = {WebMvcConfigurer.class})}
 )
