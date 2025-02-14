@@ -3,7 +3,6 @@ package com.book.librarysystem.applications.book;
 import static org.assertj.core.api.Assertions.*;
 
 import java.time.LocalDate;
-import java.util.List;
 
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Nested;
@@ -98,7 +97,7 @@ class BookServiceTest extends ServiceTestSupport {
 	}
 
 	@Test
-	@DisplayName("모든 도서를 조회하면 BookResponse 목록을 반환한다.")
+	@DisplayName("모든 도서를 조회하면 BookResponse 목록을 반환")
 	void getAllBooks() {
 		BookRegisterRequest request1 = BookFixture.bookRegisterRequest;
 		BookRegisterRequest request2 = BookFixture.bookRegisterRequest2;
@@ -106,7 +105,6 @@ class BookServiceTest extends ServiceTestSupport {
 		bookService.registerBook(request1);
 		bookService.registerBook(request2);
 
-		List<BookResponse> responses = bookService.getAllBooks();
 		assertThat(bookService.getAllBooks()).hasSize(2)
 			.extracting(BookResponse::title, BookResponse::author)
 			.containsExactlyInAnyOrder(

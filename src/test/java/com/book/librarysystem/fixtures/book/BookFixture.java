@@ -31,7 +31,7 @@ public final class BookFixture {
 		2L, "스프링 부트 인 액션", "김영한", "2022-03-01"
 	);
 	public static final List<BookResponse> bookResponses = List.of(
-		bookResponse,bookResponse2
+		bookResponse, bookResponse2
 	);
 
 	private BookFixture() {

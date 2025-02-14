@@ -1,5 +1,6 @@
 package com.book.librarysystem.apis;
 
+import org.mockito.Mock;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.context.annotation.ComponentScan;
@@ -12,6 +13,7 @@ import com.book.librarysystem.apis.book.api.BookController;
 import com.book.librarysystem.apis.test.api.TestController;
 import com.book.librarysystem.apis.user.api.UserController;
 import com.book.librarysystem.applications.book.BookService;
+import com.book.librarysystem.applications.loan.LoanService;
 import com.book.librarysystem.applications.user.UserService;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
@@ -35,4 +37,7 @@ public abstract class ControllerTestSupport {
 
 	@MockitoBean
 	protected BookService bookService;
+
+	@MockitoBean
+	protected LoanService loanService;
 }
