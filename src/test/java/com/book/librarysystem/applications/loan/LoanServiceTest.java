@@ -2,8 +2,6 @@ package com.book.librarysystem.applications.loan;
 
 import static org.assertj.core.api.Assertions.*;
 
-import java.time.LocalDate;
-
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
@@ -18,7 +16,6 @@ import com.book.librarysystem.domains.loan.domain.LoanStatus;
 import com.book.librarysystem.domains.loan.exception.BookAlreadyLoanedException;
 import com.book.librarysystem.domains.loan.exception.LoanNotFoundException;
 import com.book.librarysystem.domains.loan.exception.LoanedNotStatusException;
-import com.book.librarysystem.domains.loan.repository.LoanRepository;
 import com.book.librarysystem.fixtures.book.BookFixture;
 import com.book.librarysystem.fixtures.loan.LoanFixture;
 import com.book.librarysystem.fixtures.user.UserFixture;
