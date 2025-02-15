@@ -1,7 +1,5 @@
 package com.book.librarysystem.applications.loan.request;
 
-import java.time.LocalDate;
-
 import com.book.librarysystem.domains.loan.domain.Loan;
 import com.book.librarysystem.globals.util.DateTimeConverter;
 

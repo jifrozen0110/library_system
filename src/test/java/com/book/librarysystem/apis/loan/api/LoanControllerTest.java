@@ -1,29 +1,24 @@
 package com.book.librarysystem.apis.loan.api;
 
-import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.*;
 import static org.mockito.BDDMockito.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
 import org.springframework.http.MediaType;
 
 import com.book.librarysystem.apis.ControllerTestSupport;
 import com.book.librarysystem.applications.loan.request.LoanRegisterRequest;
-import com.book.librarysystem.fixtures.book.BookFixture;
 import com.book.librarysystem.fixtures.loan.LoanFixture;
-import com.book.librarysystem.fixtures.user.UserFixture;
 
 @DisplayName("[컨트롤러] Loan API")
 class LoanControllerTest extends ControllerTestSupport {
 
 	@Test
 	@DisplayName("성공: 대출을 등록하면 대출 ID를 반환한다.")
-	void RegisterLoan() throws Exception{
+	void RegisterLoan() throws Exception {
 		LoanRegisterRequest request = LoanFixture.loanRegisterRequest;
 		given(loanService.createdLoan(any(LoanRegisterRequest.class))).willReturn(1L);
 
@@ -52,7 +47,7 @@ class LoanControllerTest extends ControllerTestSupport {
 		Long bookId = 1L;
 		given(loanService.isBookLoaned(bookId)).willReturn(true);
 
-		mockMvc.perform(get("/api/loan/status/{bookId}",bookId))
+		mockMvc.perform(get("/api/loan/status/{bookId}", bookId))
 			.andExpect(status().isOk())
 			.andExpect(content().string("true"));
 	}

@@ -78,14 +78,14 @@ class UserServiceTest extends ServiceTestSupport {
 		UserJoinRequest request1 = UserFixture.userJoinRequest;
 		UserJoinRequest request2 = UserFixture.userJoinRequest2;
 
-		userService.join(request1);
-		userService.join(request2);
+		Long user1 = userService.join(request1);
+		Long user2 = userService.join(request2);
 
 		assertThat(userService.getAllUsers()).hasSize(2)
 			.extracting(UserResponse::id, UserResponse::email, UserResponse::name)
 			.containsExactlyInAnyOrder(
-				tuple(1L, request1.email(), request1.name()),
-				tuple(2L, request2.email(), request2.name())
+				tuple(user1, request1.email(), request1.name()),
+				tuple(user2, request2.email(), request2.name())
 			);
 	}
 }

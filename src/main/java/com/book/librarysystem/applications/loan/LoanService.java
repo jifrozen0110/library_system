@@ -1,6 +1,5 @@
 package com.book.librarysystem.applications.loan;
 
-import java.time.LocalDate;
 import java.util.Optional;
 
 import org.springframework.stereotype.Service;
@@ -34,7 +33,7 @@ public class LoanService {
 	@Transactional
 	public Long createdLoan(LoanRegisterRequest request) {
 		Book book = bookService.getBook(request.bookId());
-		User user= userService.getUser(request.userId());
+		User user = userService.getUser(request.userId());
 		if (book.getDeletedAt() != null) {
 			throw new BookDeletedException(book.getId());
 		}
