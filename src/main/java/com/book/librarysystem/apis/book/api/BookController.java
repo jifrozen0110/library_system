@@ -17,6 +17,7 @@ import com.book.librarysystem.applications.book.BookService;
 import com.book.librarysystem.applications.book.request.BookDeleteRequest;
 import com.book.librarysystem.applications.book.request.BookRegisterRequest;
 import com.book.librarysystem.applications.book.request.BookUpdateRequest;
+import com.book.librarysystem.applications.book.response.BookDetailResponse;
 import com.book.librarysystem.applications.book.response.BookResponse;
 
 import io.swagger.v3.oas.annotations.tags.Tag;
@@ -40,8 +41,8 @@ public class BookController implements BookControllerSpec {
 
 	@Override
 	@GetMapping("/{id}")
-	public ResponseEntity<BookResponse> getBook(@PathVariable Long id) {
-		BookResponse book = bookService.findById(id);
+	public ResponseEntity<BookDetailResponse> getBook(@PathVariable Long id) {
+		BookDetailResponse book = bookService.findById(id);
 		return ResponseEntity.ok(book);
 	}
 

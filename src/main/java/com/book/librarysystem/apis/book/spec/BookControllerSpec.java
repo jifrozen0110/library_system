@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import com.book.librarysystem.applications.book.request.BookDeleteRequest;
 import com.book.librarysystem.applications.book.request.BookRegisterRequest;
 import com.book.librarysystem.applications.book.request.BookUpdateRequest;
+import com.book.librarysystem.applications.book.response.BookDetailResponse;
 import com.book.librarysystem.applications.book.response.BookResponse;
 
 import io.swagger.v3.oas.annotations.Operation;
@@ -47,7 +48,7 @@ public interface BookControllerSpec {
 		}
 	)
 	@GetMapping("/{id}")
-	ResponseEntity<BookResponse> getBook(
+	ResponseEntity<BookDetailResponse> getBook(
 		@Parameter(description = "조회할 도서 ID", example = "1") @PathVariable Long id
 	);
 
