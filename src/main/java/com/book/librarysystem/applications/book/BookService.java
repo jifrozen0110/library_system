@@ -3,6 +3,8 @@ package com.book.librarysystem.applications.book;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import org.springframework.cache.annotation.CacheEvict;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -24,6 +26,7 @@ public class BookService {
 	private final BookRepository bookRepository;
 
 	@Transactional
+	@CacheEvict(cacheNames = "books", allEntries = true)
 	public Long registerBook(BookRegisterRequest request) {
 		Book book = request.toBook();
 		book = bookRepository.save(book);
@@ -31,6 +34,7 @@ public class BookService {
 	}
 
 	@Transactional
+	@CacheEvict(cacheNames = "books", allEntries = true)
 	public void updateBook(Long id, BookUpdateRequest request) {
 		Book book = getBook(id);
 		book.updateBook(request.title(), request.author(), DateTimeConverter.parseDate(request.publicationDate()),
@@ -39,6 +43,7 @@ public class BookService {
 	}
 
 	@Transactional
+	@CacheEvict(cacheNames = "books", allEntries = true)
 	public void deleteBook(Long id, BookDeleteRequest request) {
 		Book book = getBook(id);
 		book.deleteBook(request.deleteBy());
@@ -46,6 +51,7 @@ public class BookService {
 	}
 
 	@Transactional(readOnly = true)
+	@Cacheable(cacheNames = "books", key = "'all'")
 	public List<BookResponse> getAllBooks() {
 		List<Book> books = bookRepository.findAll();
 		return books.stream()
@@ -54,6 +60,7 @@ public class BookService {
 	}
 
 	@Transactional(readOnly = true)
+	@Cacheable(cacheNames = "books", key = "#id")
 	public BookResponse findById(Long id) {
 		return BookResponse.from(getBook(id));
 	}
