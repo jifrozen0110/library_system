@@ -78,8 +78,8 @@ class UserServiceTest extends ServiceTestSupport {
 		UserJoinRequest request1 = UserFixture.userJoinRequest;
 		UserJoinRequest request2 = UserFixture.userJoinRequest2;
 
-		Long user1=userService.join(request1);
-		Long user2=userService.join(request2);
+		Long user1 = userService.join(request1);
+		Long user2 = userService.join(request2);
 
 		assertThat(userService.getAllUsers()).hasSize(2)
 			.extracting(UserResponse::id, UserResponse::email, UserResponse::name)
