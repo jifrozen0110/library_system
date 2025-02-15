@@ -1,4 +1,4 @@
-package com.book.librarysystem.config;
+package com.book.librarysystem.globals.config;
 
 import org.springframework.context.annotation.Configuration;
 import org.springframework.data.jpa.repository.config.EnableJpaAuditing;
