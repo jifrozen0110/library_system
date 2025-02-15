@@ -17,6 +17,8 @@ import org.springframework.data.redis.serializer.GenericJackson2JsonRedisSeriali
 import org.springframework.data.redis.serializer.RedisSerializationContext;
 import org.springframework.data.redis.serializer.StringRedisSerializer;
 
+import lombok.val;
+
 @Configuration
 public class RedisConfig {
 	@Value("${spring.data.redis.host}")
@@ -47,7 +49,7 @@ public class RedisConfig {
 	@Bean
 	public CacheManager cacheManager(RedisConnectionFactory redisConnectionFactory) {
 		RedisCacheConfiguration defaultCacheConfig = RedisCacheConfiguration.defaultCacheConfig()
-			.entryTtl(Duration.ofMinutes(5))
+			.entryTtl(Duration.ofMinutes(10))
 			.serializeKeysWith(RedisSerializationContext.SerializationPair.fromSerializer(new StringRedisSerializer()))
 			.serializeValuesWith(
 				RedisSerializationContext.SerializationPair.fromSerializer(new GenericJackson2JsonRedisSerializer()))
@@ -56,5 +58,6 @@ public class RedisConfig {
 		return RedisCacheManager.builder(redisConnectionFactory)
 			.cacheDefaults(defaultCacheConfig).build();
 	}
+
 
 }

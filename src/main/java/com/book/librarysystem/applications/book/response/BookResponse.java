@@ -1,5 +1,7 @@
 package com.book.librarysystem.applications.book.response;
 
+import java.io.Serializable;
+
 import com.book.librarysystem.domains.book.domain.Book;
 import com.book.librarysystem.globals.util.DateTimeConverter;
 
@@ -15,7 +17,7 @@ public record BookResponse(
 	String author,
 	@Schema(description = "도서 출판일", example = "2021-01-01")
 	String publicationDate
-) {
+) implements Serializable {
 	public static BookResponse from(Book book) {
 		String publicationDate = DateTimeConverter.formatDate(book.getPublishedAt());
 		return new BookResponse(book.getId(), book.getTitle(), book.getAuthor(), publicationDate);
