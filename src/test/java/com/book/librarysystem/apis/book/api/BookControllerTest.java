@@ -15,6 +15,7 @@ import com.book.librarysystem.apis.ControllerTestSupport;
 import com.book.librarysystem.applications.book.request.BookDeleteRequest;
 import com.book.librarysystem.applications.book.request.BookRegisterRequest;
 import com.book.librarysystem.applications.book.request.BookUpdateRequest;
+import com.book.librarysystem.applications.book.response.BookDetailResponse;
 import com.book.librarysystem.applications.book.response.BookResponse;
 import com.book.librarysystem.fixtures.book.BookFixture;
 
@@ -78,7 +79,7 @@ class BookControllerTest extends ControllerTestSupport {
 	@Test
 	@DisplayName("성공: ID로 도서를 조회하면 정보를 반환한다.")
 	void getBookById() throws Exception {
-		BookResponse response = BookFixture.bookResponse;
+		BookDetailResponse response = BookFixture.bookDetailResponse;
 		given(bookService.findById(1L)).willReturn(response);
 
 		mockMvc.perform(get("/api/book/{id}", 1L))

@@ -11,6 +11,7 @@ import org.springframework.transaction.annotation.Transactional;
 import com.book.librarysystem.applications.book.request.BookDeleteRequest;
 import com.book.librarysystem.applications.book.request.BookRegisterRequest;
 import com.book.librarysystem.applications.book.request.BookUpdateRequest;
+import com.book.librarysystem.applications.book.response.BookDetailResponse;
 import com.book.librarysystem.applications.book.response.BookResponse;
 import com.book.librarysystem.domains.book.domain.Book;
 import com.book.librarysystem.domains.book.exception.BookNotFoundException;
@@ -59,8 +60,8 @@ public class BookService {
 	}
 
 	@Cacheable(cacheNames = "books", key = "#id")
-	public BookResponse findById(Long id) {
-		return BookResponse.from(getBook(id));
+	public BookDetailResponse findById(Long id) {
+		return BookDetailResponse.from(getBook(id));
 	}
 
 	public Book getBook(Long id) {

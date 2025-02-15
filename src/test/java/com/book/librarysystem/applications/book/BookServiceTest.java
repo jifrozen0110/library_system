@@ -13,6 +13,7 @@ import com.book.librarysystem.applications.ServiceTestSupport;
 import com.book.librarysystem.applications.book.request.BookDeleteRequest;
 import com.book.librarysystem.applications.book.request.BookRegisterRequest;
 import com.book.librarysystem.applications.book.request.BookUpdateRequest;
+import com.book.librarysystem.applications.book.response.BookDetailResponse;
 import com.book.librarysystem.applications.book.response.BookResponse;
 import com.book.librarysystem.domains.book.domain.Book;
 import com.book.librarysystem.domains.book.exception.BookNotFoundException;
@@ -48,7 +49,7 @@ class BookServiceTest extends ServiceTestSupport {
 		BookUpdateRequest updateRequest = BookFixture.bookUpdateRequest;
 		bookService.updateBook(bookId, updateRequest);
 
-		BookResponse response = bookService.findById(bookId);
+		BookDetailResponse response = bookService.findById(bookId);
 		assertThat(response.title()).isEqualTo(updateRequest.title());
 		assertThat(response.author()).isEqualTo(updateRequest.author());
 		String expectedPublicationDate = DateTimeConverter.formatDate(
@@ -82,8 +83,9 @@ class BookServiceTest extends ServiceTestSupport {
 			BookRegisterRequest request = BookFixture.bookRegisterRequest;
 			Long bookId = bookService.registerBook(request);
 
-			BookResponse response = bookService.findById(bookId);
-			assertThat(response).extracting(BookResponse::id, BookResponse::title, BookResponse::author)
+			BookDetailResponse response = bookService.findById(bookId);
+			assertThat(response).extracting(BookDetailResponse::id, BookDetailResponse::title,
+					BookDetailResponse::author)
 				.containsExactly(bookId, request.title(), request.author());
 		}
 

@@ -5,6 +5,7 @@ import java.util.List;
 import com.book.librarysystem.applications.book.request.BookDeleteRequest;
 import com.book.librarysystem.applications.book.request.BookRegisterRequest;
 import com.book.librarysystem.applications.book.request.BookUpdateRequest;
+import com.book.librarysystem.applications.book.response.BookDetailResponse;
 import com.book.librarysystem.applications.book.response.BookResponse;
 
 public final class BookFixture {
@@ -29,6 +30,10 @@ public final class BookFixture {
 
 	public static final BookResponse bookResponse2 = new BookResponse(
 		2L, "스프링 부트 인 액션", "김영한", "2022-03-01"
+	);
+
+	public static final BookDetailResponse bookDetailResponse = new BookDetailResponse(
+		1L, "자바의 정석", "남궁성", "2021-01-01", "2021-01-01", "admin", null
 	);
 	public static final List<BookResponse> bookResponses = List.of(
 		bookResponse, bookResponse2
