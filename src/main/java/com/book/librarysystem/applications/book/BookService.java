@@ -50,7 +50,6 @@ public class BookService {
 		bookRepository.save(book);
 	}
 
-	@Transactional(readOnly = true)
 	@Cacheable(cacheNames = "books", key = "'all'")
 	public List<BookResponse> getAllBooks() {
 		List<Book> books = bookRepository.findAll();
@@ -59,7 +58,6 @@ public class BookService {
 			.collect(Collectors.toList());
 	}
 
-	@Transactional(readOnly = true)
 	@Cacheable(cacheNames = "books", key = "#id")
 	public BookResponse findById(Long id) {
 		return BookResponse.from(getBook(id));
