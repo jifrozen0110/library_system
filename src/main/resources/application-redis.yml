@@ -3,6 +3,6 @@ spring:
     type: redis
   data:
     redis:
-      host: ${REDIS_HOST}
+      host: localhost
       port: 6379
       password: redis
