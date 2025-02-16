@@ -1,6 +1,6 @@
 spring:
   profiles:
     group:
-      dev: "dev, docs, redis"
-      prod: "prod, redis"
+      dev: "dev, docs, redis,monitoring"
+      prod: "prod, redis,monitoring"
     active: dev
