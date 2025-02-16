@@ -62,6 +62,7 @@ jobs:
       - name: Run new container
         run: |
           sudo docker run -it -d --restart always --name library-app -p 8080:8080 \
+            --network library_network \
             -e SPRING_PROFILES_ACTIVE=prod \
             -e SPRING_DATASOURCE_URL=${{ secrets.DB_URL }} \
             -e SPRING_DATASOURCE_USERNAME=${{ secrets.DB_USERNAME }} \
