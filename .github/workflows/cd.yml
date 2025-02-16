@@ -1,0 +1,71 @@
+name: backend deploy to release
+
+on:
+  push:
+    branches:
+      - release
+
+jobs:
+  build-docker-image:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+    steps:
+      - name: Check out code
+        uses: actions/checkout@v4
+
+      - name: Set up JDK
+        uses: actions/setup-java@v4
+        with:
+          distribution: 'temurin'
+          java-version: '21'
+
+      - name: Setup Gradle
+        uses: gradle/actions/setup-gradle@417ae3ccd767c252f5661f1ace9f835f9654f2b5
+
+      - name: Grant execute permission for gradlew
+        run: chmod +x gradlew
+
+      - name: Build with Gradle
+        run: ./gradlew clean build -x test
+
+      - name: Build Docker Image
+        run: docker build -t ${{ secrets.DOCKER_USERNAME }}/library-system:latest .
+
+      - name: Push Docker Image
+        run: docker login -u ${{ secrets.DOCKER_USERNAME }} -p ${{ secrets.DOCKER_PASSWORD }}
+      - run: docker push ${{ secrets.DOCKER_USERNAME }}/library-system:latest
+
+  deploy-to-ec2:
+    needs: build-docker-image
+    runs-on: self-hosted
+
+    steps:
+      - name: Pull latest Docker image
+        run: sudo docker pull ${{ secrets.DOCKER_USERNAME }}/library-system:latest
+
+      - name: Stop existing container
+        run: |
+          if [ $(sudo docker ps -q -f name=library-app) ]; then
+            sudo docker stop library-app
+          fi
+
+      - name: Remove old container
+        run: |
+          if [ $(sudo docker ps -a -q -f name=library-app) ]; then
+            sudo docker rm library-app
+          fi
+
+      - name: Run new container
+        run: |
+          sudo docker run -it -d --restart always --name library-app -p 8080:8080 \
+            -e SPRING_PROFILES_ACTIVE=prod \
+            -e SPRING_DATASOURCE_URL=${{ secrets.DB_URL }} \
+            -e SPRING_DATASOURCE_USERNAME=${{ secrets.DB_USERNAME }} \
+            -e SPRING_DATASOURCE_PASSWORD=${{ secrets.DB_PASSWORD }} \
+            -e SPRING_REDIS_HOST=${{ secrets.REDIS_HOST }} \
+            -e SPRING_REDIS_PORT=${{ secrets.REDIS_PORT }} \
+            ${{ secrets.DOCKER_USERNAME }}/library-system:latest
+
+      - name: Cleanup old images
+        run: sudo docker system prune -f
