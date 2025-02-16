@@ -66,8 +66,6 @@ jobs:
             -e SPRING_DATASOURCE_URL=${{ secrets.DB_URL }} \
             -e SPRING_DATASOURCE_USERNAME=${{ secrets.DB_USERNAME }} \
             -e SPRING_DATASOURCE_PASSWORD=${{ secrets.DB_PASSWORD }} \
-            -e SPRING_REDIS_HOST=${{ secrets.REDIS_HOST }} \
-            -e SPRING_REDIS_PORT=${{ secrets.REDIS_PORT }} \
             ${{ secrets.DOCKER_USERNAME }}/library-system:latest
 
       - name: Cleanup old images
