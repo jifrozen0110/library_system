@@ -1,0 +1,76 @@
+version: "3.8"
+services:
+  mysql:
+    image: mysql:8.0
+    container_name: mysql-db
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: rootpassword
+      MYSQL_DATABASE: library_db
+      MYSQL_USER: library_user
+      MYSQL_PASSWORD: library_password
+    ports:
+      - "3307:3306"  # 외부 접근은 3307, 내부에서는 3306 유지
+    networks:
+      - library_network
+    healthcheck:  # MySQL이 정상적으로 실행되었는지 확인 후 library-app 실행
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost"]
+      timeout: 20s
+      retries: 10
+
+  redis:
+    image: redis:latest
+    container_name: redis-cache
+    restart: always
+    ports:
+      - "6379:6379"
+    networks:
+      - library_network
+
+  prometheus:
+    image: prom/prometheus:latest
+    container_name: prometheus-monitor
+    restart: always
+    ports:
+      - "9090:9090"
+    volumes:
+      - ./prometheus/prometheus.yml:/etc/prometheus/prometheus.yml
+    networks:
+      - library_network
+
+  grafana:
+    image: grafana/grafana:latest
+    container_name: grafana-dashboard
+    restart: always
+    ports:
+      - "3000:3000"
+    environment:
+      - GF_SECURITY_ADMIN_PASSWORD=admin
+    networks:
+      - library_network
+
+  library-app:
+    image: jifrozen0110/library-system:latest
+    container_name: library-app
+    restart: always
+    depends_on:
+      mysql:
+        condition: service_healthy  # MySQL이 정상 실행된 후에 실행
+      redis:
+        condition: service_started
+    ports:
+      - "8080:8080"
+    environment:
+      SPRING_PROFILES_ACTIVE: dev
+      SPRING_DATASOURCE_URL: jdbc:mysql://mysql-db:3306/library_db  # 내부 네트워크에서는 3306 사용
+      SPRING_DATASOURCE_USERNAME: library_user
+      SPRING_DATASOURCE_PASSWORD: library_password
+      SPRING_REDIS_HOST: redis-cache
+      SPRING_REDIS_PORT: 6379
+      MANAGEMENT_METRICS_EXPORT_PROMETHEUS_ENABLED: "true"
+    networks:
+      - library_network
+
+networks:
+  library_network:
+    driver: bridge
