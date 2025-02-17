@@ -10,7 +10,6 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 import com.book.librarysystem.apis.book.api.BookController;
 import com.book.librarysystem.apis.loan.api.LoanController;
-import com.book.librarysystem.apis.test.api.TestController;
 import com.book.librarysystem.apis.user.api.UserController;
 import com.book.librarysystem.applications.book.BookService;
 import com.book.librarysystem.applications.loan.LoanService;
@@ -19,7 +18,6 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 
 @WebMvcTest(
 	controllers = {
-		TestController.class,
 		UserController.class,
 		BookController.class,
 		LoanController.class
