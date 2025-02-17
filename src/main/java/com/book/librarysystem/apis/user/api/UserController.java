@@ -2,12 +2,14 @@ package com.book.librarysystem.apis.user.api;
 
 import java.util.List;
 
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.book.librarysystem.apis.user.spec.UserControllerSpec;
@@ -28,6 +30,7 @@ public class UserController implements UserControllerSpec {
 	private final UserService userService;
 
 	@Override
+	@ResponseStatus(HttpStatus.CREATED)
 	@PostMapping("/join")
 	public ResponseEntity<Long> join(@RequestBody @Valid UserJoinRequest request) {
 		Long userId = userService.join(request);
