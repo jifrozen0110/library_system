@@ -15,11 +15,13 @@ import com.book.librarysystem.applications.book.request.BookRegisterRequest;
 import com.book.librarysystem.applications.book.request.BookUpdateRequest;
 import com.book.librarysystem.applications.book.response.BookDetailResponse;
 import com.book.librarysystem.applications.book.response.BookResponse;
+import com.book.librarysystem.globals.presentation.ErrorResponse;
 
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.media.ArraySchema;
 import io.swagger.v3.oas.annotations.media.Content;
+import io.swagger.v3.oas.annotations.media.ExampleObject;
 import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import jakarta.validation.Valid;
@@ -44,7 +46,10 @@ public interface BookControllerSpec {
 		responses = {
 			@ApiResponse(responseCode = "200", description = "도서 조회 성공",
 				content = @Content(schema = @Schema(implementation = BookResponse.class))),
-			@ApiResponse(responseCode = "404", description = "도서를 찾을 수 없습니다.")
+			@ApiResponse(responseCode = "404", description = "not found",
+				content = @Content(mediaType = "application/json",
+					schema = @Schema(implementation = ErrorResponse.class),
+					examples = @ExampleObject(value = "책을 찾을 수 없습니다.")))
 		}
 	)
 	@GetMapping("/{id}")
@@ -56,9 +61,27 @@ public interface BookControllerSpec {
 		summary = "도서 등록",
 		description = "새로운 도서를 등록합니다.",
 		responses = {
-			@ApiResponse(responseCode = "200", description = "도서 등록 성공",
+			@ApiResponse(responseCode = "201", description = "도서 등록 성공",
 				content = @Content(schema = @Schema(implementation = Long.class))),
-			@ApiResponse(responseCode = "400", description = "잘못된 요청 데이터입니다.")
+			@ApiResponse(responseCode = "400", description = "bad request",
+				content = @Content(
+					mediaType = "application/json",
+					schema = @Schema(implementation = ErrorResponse.class),
+					examples = {
+						@ExampleObject(name = "MissingTitle",
+							summary = "도서 제목이 없는 경우",
+							value = "{ \"message\": \"도서 제목은 필수입니다.\" }"),
+						@ExampleObject(name = "MissingAuthor",
+							summary = "도서 저자가 없는 경우",
+							value = "{ \"message\": \"도서 저자는 필수입니다.\" }"),
+						@ExampleObject(name = "MissingPublicationDate",
+							summary = "도서 출판일이 없는 경우",
+							value = "{ \"message\": \"도서 출판일은 필수입니다.\" }"),
+						@ExampleObject(name = "InvalidDateFormat",
+							summary = "출판일 형식이 잘못된 경우",
+							value = "{ \"message\": \"도서 출판일은 yyyy-MM-dd 형식이어야 합니다.\" }")
+					}
+				))
 		}
 	)
 	@PostMapping
@@ -72,8 +95,29 @@ public interface BookControllerSpec {
 		responses = {
 			@ApiResponse(responseCode = "200", description = "도서 수정 성공",
 				content = @Content(schema = @Schema(implementation = String.class))),
-			@ApiResponse(responseCode = "400", description = "잘못된 요청 데이터입니다."),
-			@ApiResponse(responseCode = "404", description = "도서를 찾을 수 없습니다.")
+			@ApiResponse(responseCode = "404", description = "not found",
+				content = @Content(mediaType = "application/json",
+					schema = @Schema(implementation = ErrorResponse.class),
+					examples = @ExampleObject(value = "책을 찾을 수 없습니다."))),
+			@ApiResponse(responseCode = "400", description = "bad request",
+				content = @Content(
+					mediaType = "application/json",
+					schema = @Schema(implementation = ErrorResponse.class),
+					examples = {
+						@ExampleObject(name = "MissingTitle",
+							summary = "도서 제목이 없는 경우",
+							value = "{ \"message\": \"도서 제목은 필수입니다.\" }"),
+						@ExampleObject(name = "MissingAuthor",
+							summary = "도서 저자가 없는 경우",
+							value = "{ \"message\": \"도서 저자는 필수입니다.\" }"),
+						@ExampleObject(name = "MissingPublicationDate",
+							summary = "도서 출판일이 없는 경우",
+							value = "{ \"message\": \"도서 출판일은 필수입니다.\" }"),
+						@ExampleObject(name = "InvalidDateFormat",
+							summary = "출판일 형식이 잘못된 경우",
+							value = "{ \"message\": \"도서 출판일은 yyyy-MM-dd 형식이어야 합니다.\" }")
+					}
+				))
 		}
 	)
 	@PutMapping("/{id}")
@@ -88,8 +132,20 @@ public interface BookControllerSpec {
 		responses = {
 			@ApiResponse(responseCode = "200", description = "도서 삭제 성공",
 				content = @Content(schema = @Schema(implementation = String.class))),
-			@ApiResponse(responseCode = "400", description = "잘못된 요청 데이터입니다."),
-			@ApiResponse(responseCode = "404", description = "도서를 찾을 수 없습니다.")
+			@ApiResponse(responseCode = "404", description = "not found",
+				content = @Content(mediaType = "application/json",
+					schema = @Schema(implementation = ErrorResponse.class),
+					examples = @ExampleObject(value = "책을 찾을 수 없습니다."))),
+			@ApiResponse(responseCode = "400", description = "bad request",
+				content = @Content(
+					mediaType = "application/json",
+					schema = @Schema(implementation = ErrorResponse.class),
+					examples = {
+						@ExampleObject(name = "MissingDeleteBy",
+							summary = "삭제자가 없는 경우",
+							value = "{ \"message\": \"삭제자는 필수입니다.\" }"),
+					}
+				))
 		}
 	)
 	@DeleteMapping("/{id}")
